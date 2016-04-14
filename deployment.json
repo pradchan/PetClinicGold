@@ -1,0 +1,9 @@
+{
+  "services": [
+    {
+      "name": "MyDB",
+      "type": "DBAAS",
+      "username": "petclinic",
+      "password": "petclinic"
+    }
+  ]}

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+
+  <proxies>
+    <proxy>
+      <port>80</port>
+      <host>www-proxy.us.oracle.com</host>
+<!--
+      <nonProxyHosts>localhost|localhost.localdomain|127.0.0.1|[::1]|*.oracle.com|*.oraclecorp.com</nonProxyHosts>
+-->
+      <nonProxyHosts>localhost|localhost.localdomain|127.0.0.1|[::1]</nonProxyHosts>
+    </proxy>
+  </proxies>
+  <servers>
+    <server>
+      <id>maven.oracle.com</id>
+      <username>USER_ID</username>
+      <password>USER_PASSWORD</password>
+      <configuration>
+        <basicAuthScope>
+          <host>ANY</host>
+          <port>ANY</port>
+          <realm>OAM 11g</realm>
+        </basicAuthScope>
+        <httpConfiguration>
+          <all>
+            <params>
+              <property>
+                <name>http.protocol.allow-circular-redirects</name>
+                <value>%b,true</value>
+              </property>
+            </params>
+          </all>
+        </httpConfiguration>
+      </configuration>
+    </server>
+  </servers>
+</settings>
