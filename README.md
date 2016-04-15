@@ -7,7 +7,7 @@ This demo uses Developer Cloud Service to build and deploy the Spring PetClinic 
 Prerequisites
 =============
 
-Inputs for this demo:
+Inputs for this demo are:
 
 1. SSH key for DBCS VM
 2. Password for DBCS `system` user
