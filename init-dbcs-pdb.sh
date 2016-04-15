@@ -5,6 +5,8 @@ if [ -z "$1" ] || [ -z "$2" ]; then
   exit -1;
 fi
 
+appuser="petclinic"
+apppassword="petclinic"
 dbuser=${1}
 dbpassword=${2}
 sshkey=${3}
@@ -16,6 +18,10 @@ else
   pdb=${5};
 fi
 
-scp -i ${sshkey} database/create_user.sh   oracle@${ipaddress}:create_user.sh
 scp -i ${sshkey} database/create_user.sql  oracle@${ipaddress}:create_user.sql
-ssh -i ${sshkey} oracle@${ipaddress} "sh create_user.sh ${dbuser} ${dbpassword} ${pdb}"
+scp -i ${sshkey} spring-petclinic/src/main/resources/db/oracle/initDB.sql  oracle@${ipaddress}:initDB.sql
+scp -i ${sshkey} spring-petclinic/src/main/resources/db/oracle/populateDB.sql  oracle@${ipaddress}:populateDB.sql
+
+ssh -i ${sshkey} oracle@${ipaddress} "cat create_user.sql | sqlplus ${dbuser}/${dbpassword}@${pdb}"
+ssh -i ${sshkey} oracle@${ipaddress} "cat initDB.sql | sqlplus ${appuser}/${apppassword}@${pdb}"
+ssh -i ${sshkey} oracle@${ipaddress} "cat populateDB.sql | sqlplus ${appuser}/${apppassword}@${pdb}"

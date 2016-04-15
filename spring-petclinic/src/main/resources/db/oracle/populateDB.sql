@@ -33,21 +33,23 @@ INSERT INTO owners VALUES (8, 'Maria', 'Escobito', '345 Maple St.', 'Madison', '
 INSERT INTO owners VALUES (9, 'David', 'Schroeder', '2749 Blackhawk Trail', 'Madison', '6085559435');
 INSERT INTO owners VALUES (10, 'Carlos', 'Estaban', '2335 Independence La.', 'Waunakee', '6085555487');
 
-INSERT INTO pets VALUES (1, 'Leo', '2000-09-07', 1, 1);
-INSERT INTO pets VALUES (2, 'Basil', '2002-08-06', 6, 2);
-INSERT INTO pets VALUES (3, 'Rosy', '2001-04-17', 2, 3);
-INSERT INTO pets VALUES (4, 'Jewel', '2000-03-07', 2, 3);
-INSERT INTO pets VALUES (5, 'Iggy', '2000-11-30', 3, 4);
-INSERT INTO pets VALUES (6, 'George', '2000-01-20', 4, 5);
-INSERT INTO pets VALUES (7, 'Samantha', '1995-09-04', 1, 6);
-INSERT INTO pets VALUES (8, 'Max', '1995-09-04', 1, 6);
-INSERT INTO pets VALUES (9, 'Lucky', '1999-08-06', 5, 7);
-INSERT INTO pets VALUES (10, 'Mulligan', '1997-02-24', 2, 8);
-INSERT INTO pets VALUES (11, 'Freddy', '2000-03-09', 5, 9);
-INSERT INTO pets VALUES (12, 'Lucky', '2000-06-24', 2, 10);
-INSERT INTO pets VALUES (13, 'Sly', '2002-06-08', 1, 10);
+INSERT INTO pets VALUES (1, 'Leo', TO_DATE('2000-09-07','YYYY-MM-DD'), 1, 1);
+INSERT INTO pets VALUES (2, 'Basil', TO_DATE('2002-08-06','YYYY-MM-DD'), 6, 2);
+INSERT INTO pets VALUES (3, 'Rosy', TO_DATE('2001-04-17','YYYY-MM-DD'), 2, 3);
+INSERT INTO pets VALUES (4, 'Jewel', TO_DATE('2000-03-07','YYYY-MM-DD'), 2, 3);
+INSERT INTO pets VALUES (5, 'Iggy', TO_DATE('2000-11-30','YYYY-MM-DD'), 3, 4);
+INSERT INTO pets VALUES (6, 'George', TO_DATE('2000-01-20','YYYY-MM-DD'), 4, 5);
+INSERT INTO pets VALUES (7, 'Samantha', TO_DATE('1995-09-04','YYYY-MM-DD'), 1, 6);
+INSERT INTO pets VALUES (8, 'Max', TO_DATE('1995-09-04','YYYY-MM-DD'), 1, 6);
+INSERT INTO pets VALUES (9, 'Lucky', TO_DATE('1999-08-06','YYYY-MM-DD'), 5, 7);
+INSERT INTO pets VALUES (10, 'Mulligan', TO_DATE('1997-02-24','YYYY-MM-DD'), 2, 8);
+INSERT INTO pets VALUES (11, 'Freddy', TO_DATE('2000-03-09','YYYY-MM-DD'), 5, 9);
+INSERT INTO pets VALUES (12, 'Lucky', TO_DATE('2000-06-24','YYYY-MM-DD'), 2, 10);
+INSERT INTO pets VALUES (13, 'Sly', TO_DATE('2002-06-08','YYYY-MM-DD'), 1, 10);
 
-INSERT INTO visits VALUES (1, 7, '2010-03-04', 'rabies shot');
-INSERT INTO visits VALUES (2, 8, '2011-03-04', 'rabies shot');
-INSERT INTO visits VALUES (3, 8, '2009-06-04', 'neutered');
-INSERT INTO visits VALUES (4, 7, '2008-09-04', 'spayed');
+INSERT INTO visits VALUES (1, 7, TO_DATE('2010-03-04','YYYY-MM-DD'), 'rabies shot');
+INSERT INTO visits VALUES (2, 8, TO_DATE('2011-03-04','YYYY-MM-DD'), 'rabies shot');
+INSERT INTO visits VALUES (3, 8, TO_DATE('2009-06-04','YYYY-MM-DD'), 'neutered');
+INSERT INTO visits VALUES (4, 7, TO_DATE('2008-09-04','YYYY-MM-DD'), 'spayed');
+
+COMMIT;
