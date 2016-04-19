@@ -30,7 +30,7 @@ Overview:
 Create DBCS instance
 --------------------
 
-Create a DBCS service instance. The name of the service is user specifiable and won't have an impact on the example.
+Create a DBCS service instance. The name of the service must be `MyDB` to match configuration values used in this example.
 
 Create DevCS PetClinic Project
 ------------------------------
@@ -95,20 +95,98 @@ After you have cloned the git repo:
 3.  Provide your oracle.com password
 4.  The script will generate `settings.xml` and `settings-security.xml` files with your passwords encrypted.
 
-
 Commit and push generated Maven credentials to DevCS GIT
 --------------------------------------------------------
 
 Add the generated `settings.xml` and `settings-security.xml` files to GIT, commit, and push them back to the DevCS GIT repo for use in the build.
 
+    $ git add mvn/settings-security.xml mvn/settings.xml
+    $ git commit -m "credentials"
+      [master ea35e47] credentials
+      2 files changed, 41 insertions(+)
+      create mode 100644 mvn/settings-security.xml
+      create mode 100644 mvn/settings.xml
+    $ git push
+    ...
+    Counting objects: 5, done.
+    Delta compression using up to 8 threads.
+    Compressing objects: 100% (5/5), done.
+    Writing objects: 100% (5/5), 956 bytes | 0 bytes/s, done.
+    Total 5 (delta 1), reused 0 (delta 0)
+    remote: Resolving deltas: 100% (1/1)
+    remote: Updating references: 100% (1/1)
+    To ssh://..developer.us2.oraclecloud.com/../petclinic.git
+    a7939ab..ea35e47  master -> master
+
 
 Building the Application on Developer Cloud Service
 ---------------------------------------------------
 
-Once you've created the Maven `settings.xml` and `setting-security.xml` files and pushed your project to the DevCS GIT repo you can build on DevCS by configuring the following build steps:
+Once you've created the Maven `settings.xml` and `setting-security.xml` files and pushed your project to the DevCS GIT repo you can build on DevCS by configuring the following build steps.  You'll need to add three Execute Shell steps to the default build, one before Maven runs, and two afterwards.
+
+NOTE: The maven goal is **package**, not install.
+
+**cp mvn/settings-security.xml ~/.m2/settings-security.xml**
 
 ![Execute shell `cp mvn/settings-security.xml ~/.m2/settings-security.xml`](images/buildstep-1.png "cp mvn/settings-security.xml ~/.m2/settings-security.xml")
 
-![Invoke Maven 3 `--settings=mvn/settings.xml clean install`](images/buildstep-2.png "--settings=mvn/settings.xml clean install")
+**--settings=mvn/settings.xml clean package**
+![Invoke Maven 3 `--settings=mvn/settings.xml clean package`](images/buildstep-2.png "--settings=mvn/settings.xml clean package")
 
-![Execute shell `rm ~/.m2/settings-security.xml`](images/buildstep-3.png "rm ~/.m2/settings-security.xml ~/.m2/settings-security.xml")
+**rm ~/.m2/settings-security.xml**
+![Execute shell `rm ~/.m2/settings-security.xml`](images/buildstep-3.png "rm ~/.m2/settings-security.xml")
+
+**sh package.sh**
+![Execute shell `sh package.sh`](images/buildstep-4.png "sh package.sh")
+
+
+The final step is to indicate what build artifact to archive.  Go to the build job's Post Build tab and in the Files to Archive field type "*.zip".  The output of the build is a deployable application archive which is a zip file.
+
+![Archive *.zip](images/buildstep-5.png "Archive *.zip")
+
+Automatic Builds
+----------------
+
+Enable firing off a build automatically when code is committed to the GIT repository.  On the build Triggers tab, check `Based on SCM poling schedule`.
+![Automatic Build](images/buildstep-7.png "Automatic Build")
+
+
+
+Creating the Application
+------------------------
+
+Because the application environment needs to be configure prior to deployment, we will create a sample application along with the necessary configuration, specifically the service binding to DBCS. Run `create-application.sh` with your identity domain, user id, and password.
+
+`usage: ./create-application.sh <id domain> <user id> <user password>`
+
+    $./create-application.sh jcsdemo230 demouser demopassword
+
+After a minute or two you will see the created application along with the service binding in the ACCS service console.
+
+![TomcatPetClinic](images/buildstep-6.png "TomcatPetClinic")
+
+
+Deploying the Application from Developer Cloud Service
+------------------------------------------------------
+
+Once you have built the application successfully at least once, you can define a deployment configuration to automate deployment to ACCS.
+
+1. Go to the project Deploy tab
+2. Click New Configuration
+3. Enter a deployment configuration name, e.g. "PetClinicDeploy"
+4. Enter the application name.  This is the name of the application created by `create-application.sh` script, which is `TomcatPetClinic`.
+5. Click on the Deployment Target field to get a drop down list.  Select your identity domain.
+6. For Type, select Automatic.  This will deploy all successful builds automatically.
+7. Select the default build name for the Job field.
+8. Select the sole zip generated by the build as your Artifact to deploy.
+9. Save the configuration.
+10. Once saved, click on the Gear menu of the deployment and choose `Redeploy` to deploy the application archive.
+11. Choose the last successful build (it should be the default) and click Deploy.
+
+
+Exploring the Application
+-------------------------
+
+Navigate to the application by opening the URL provided at the top of the ACCS application details pages.  The base URL will take you to the Tomcat default page.  Add `/petclinic` to the end of the URL to see the application.
+
+All data displayed in the user interface is read and written to the associated DBCS instance.

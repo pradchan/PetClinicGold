@@ -45,6 +45,13 @@
 
 	<!-- ORACLE Maven Repostitory -->
 	<repositories>
+    <repository>
+      <id>central</id>
+      <url>https://repo1.maven.org/maven2</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </repository>
 		<repository>
 			<id>maven.oracle.com</id>
 			<releases>
@@ -58,6 +65,13 @@
 		</repository>
 	</repositories>
 	<pluginRepositories>
+    <pluginRepository>
+      <id>central</id>
+      <url>https://repo1.maven.org/maven2</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </pluginRepository>
 		<pluginRepository>
 			<id>maven.oracle.com</id>
 			<url>https://maven.oracle.com</url>
@@ -229,7 +243,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-        
+
         <!-- HIBERNATE -->
         <dependency>
             <groupId>org.hibernate</groupId>
