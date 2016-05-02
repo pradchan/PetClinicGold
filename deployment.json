@@ -1,7 +1,7 @@
 {
   "services": [
     {
-      "name": "MyDB",
+      "name": "MyDBCS",
       "type": "DBAAS",
       "username": "petclinic",
       "password": "petclinic"
