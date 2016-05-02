@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+
+  <proxies>
+    <proxy>
+    <active>true</active>
+    <protocol>http</protocol>
+    <!-- A Maven error in DevCS generates and error for HTTP_PROXY_PORT so let default to 80 which is correct.
+     <port>${env.HTTP_PROXY_PORT}</port>
+    -->
+    <host>${env.HTTP_PROXY_HOST}</host>
+    <nonProxyHosts>${env.NO_PROXY_ALT}</nonProxyHosts>
+    </proxy>
+  </proxies>
+  <servers>
+    <server>
+      <id>maven.oracle.com</id>
+      <username>gse-admin_ww@oracle.com</username>
+      <password>{lU9JEMn+JA0HDs0tWztTg1YwtdF3Uwf/uwDNfKIikdI=}</password>
+      <configuration>
+        <basicAuthScope>
+          <host>ANY</host>
+          <port>ANY</port>
+          <realm>OAM 11g</realm>
+        </basicAuthScope>
+        <httpConfiguration>
+          <all>
+            <params>
+              <property>
+                <name>http.protocol.allow-circular-redirects</name>
+                <value>%b,true</value>
+              </property>
+            </params>
+          </all>
+        </httpConfiguration>
+      </configuration>
+    </server>
+  </servers>
+</settings>
