@@ -231,7 +231,7 @@
             <version>${mysql-driver.version}</version>
         </dependency-->
 
-		<!--  ORACLE Database -->
+		<!--  ORACLE Database 
 		<dependency>
 			<groupId>com.oracle.jdbc</groupId>
 			<artifactId>ojdbc7</artifactId>
@@ -243,7 +243,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
+        -->
         <!-- HIBERNATE -->
         <dependency>
             <groupId>org.hibernate</groupId>
